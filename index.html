@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>elloyer — Разработка сайтов и ботов</title>
 <meta name="description" content="Разработка сайтов, лендингов и Telegram-ботов. Быстро, качественно, с гарантией." />
-<!-- Иконка для вкладки браузера (неоновая E) -->
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><circle cx='12' cy='12' r='10' stroke='%233b82f6' stroke-width='2'/><path d='M8 12H16M12 8V16' stroke='%233b82f6' stroke-width='2' stroke-linecap='round'/></svg>" type="image/svg+xml">
+<!-- Иконка для вкладки браузера -->
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none'><rect x='2' y='2' width='20' height='20' rx='6' stroke='%233b82f6' stroke-width='2'/><path d='M8 7V17M8 7H16M8 12H14M8 17H16' stroke='%233b82f6' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -23,6 +23,7 @@
     --radius: 16px;
     --font-head: 'Space Grotesk', sans-serif;
     --font-body: 'Inter', sans-serif;
+    --success: #22c55e;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -50,21 +51,13 @@
   }
   .header-inner { display: flex; justify-content: space-between; align-items: center; height: 72px; }
   
-  /* Обновленный логотип */
+  /* НОВЫЙ ЛОГОТИП (Четкий, с жесткими цветами) */
   .logo { 
-    font-family: var(--font-head); 
-    font-size: 20px; 
-    font-weight: 700; 
-    letter-spacing: -0.02em; 
-    display: flex; 
-    align-items: center; 
-    gap: 10px; 
-    color: var(--ink);
-    transition: opacity 0.2s;
+    font-family: var(--font-head); font-size: 22px; font-weight: 700; letter-spacing: -0.02em; 
+    display: flex; align-items: center; gap: 12px; color: var(--ink); transition: opacity 0.2s;
   }
   .logo:hover { opacity: 0.8; }
-  .logo svg { flex-shrink: 0; }
-
+  
   .nav { display: flex; gap: 32px; align-items: center; }
   .nav a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
   .nav a:hover { color: var(--ink); }
@@ -84,7 +77,7 @@
   @media (max-width: 900px) { .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 120px; } }
   
   .hero-badge { display: inline-flex; align-items: center; gap: 8px; padding: 6px 14px; background: var(--surface); border: 1px solid var(--border); border-radius: 99px; font-size: 13px; font-weight: 500; color: var(--muted); margin-bottom: 24px; }
-  .hero-badge::before { content: ''; width: 6px; height: 6px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
+  .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--success); border-radius: 50%; box-shadow: 0 0 8px var(--success); }
   
   .hero h1 { font-family: var(--font-head); font-size: clamp(40px, 6vw, 64px); line-height: 1.1; letter-spacing: -0.03em; margin-bottom: 24px; }
   .hero h1 span { color: var(--accent); }
@@ -171,13 +164,12 @@
   .calc-extra-check::before { content: ""; width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 6px; transition: 0.2s; }
   .calc-extra input:checked + label .calc-extra-check::before { background: var(--accent); border-color: var(--accent); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 7L6 10L11 4' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; }
 
-  /* ИСПРАВЛЕННЫЙ ЧЕК (Больше никакой пустоты) */
+  /* Чек */
   .calc-receipt {
     background: #111113; border-radius: 16px; padding: 32px;
     display: flex; flex-direction: column;
     border: 1px solid var(--border); 
-    position: sticky; top: 100px;
-    align-self: start;
+    position: sticky; top: 100px; align-self: start;
   }
   .receipt-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-bottom: 24px; }
   .receipt-row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 12px; color: var(--muted); }
@@ -274,11 +266,11 @@
 
 <header class="header">
   <div class="wrap header-inner">
-    <!-- Логотип: Неоновая E -->
+    <!-- Жестко заданный логотип с буквой E -->
     <div class="logo">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="10" stroke="var(--border)" stroke-width="2"/>
-        <path d="M8 12H16M12 8V16" stroke="var(--accent)" stroke-width="2" stroke-linecap="round"/>
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="2" y="2" width="20" height="20" rx="6" stroke="#3b82f6" stroke-width="2"/>
+        <path d="M8 7V17M8 7H16M8 12H14M8 17H16" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
       </svg>
       elloyer
     </div>
@@ -295,6 +287,7 @@
   <section class="hero wrap reveal">
     <div>
       <div class="hero-badge">Беру проекты в работу</div>
+      <!-- Убранное "Привет, я Елисей" заменено на продающий заголовок -->
       <h1>Ваш бизнес заслуживает <br><span>большего, чем шаблон.</span></h1>
       <p>Проектирую сайты и автоматизирую заявки через Telegram-ботов. Цена фиксируется до старта. Помогу с доменом и запуском, даже если вы в этом совсем не разбираетесь.</p>
       <div class="hero-actions">
@@ -574,17 +567,21 @@
       <form id="contactForm">
         <div class="form-group">
           <label>Ваше имя</label>
-          <input type="text" placeholder="Иван" required />
+          <input type="text" id="contactName" placeholder="Иван" required />
         </div>
         <div class="form-group">
           <label>Telegram или телефон</label>
-          <input type="text" placeholder="@ivan" required />
+          <input type="text" id="contactContact" placeholder="@ivan" required />
         </div>
         <div class="form-group">
           <label>Задача</label>
-          <textarea placeholder="Опишите, что нужно сделать..." required></textarea>
+          <textarea id="contactMessage" placeholder="Опишите, что нужно сделать..." required></textarea>
         </div>
-        <button type="submit" class="btn btn-accent" style="width: 100%;">Отправить заявку</button>
+        <button type="submit" class="btn btn-accent" style="width: 100%;" id="submitBtn">Отправить заявку</button>
+        
+        <div id="formSuccess" style="display: none; color: var(--success); text-align: center; margin-top: 16px; font-size: 14px; font-weight: 500;">
+          Заявка сформирована! Открываем Telegram...
+        </div>
       </form>
 
       <div class="contact-tg-box">
@@ -621,6 +618,7 @@
   }, { threshold: 0.1 });
   revealElements.forEach(el => revealObserver.observe(el));
 
+  // --- ЛОГИКА КАЛЬКУЛЯТОРА ---
   const baseRadios = document.querySelectorAll('input[name="baseType"]');
   const speedRadios = document.querySelectorAll('input[name="speed"]');
   const extrasCheckboxes = document.querySelectorAll('.calc-extra input[type="checkbox"]');
@@ -689,10 +687,34 @@
   extrasCheckboxes.forEach(c => c.addEventListener('change', calculate));
   calculate();
 
+  // --- ЛОГИКА ФОРМЫ (ОТПРАВКА В ТЕЛЕГРАМ) ---
   document.getElementById('contactForm').addEventListener('submit', function(e) {
     e.preventDefault();
-    alert('Спасибо! Я свяжусь с вами в ближайшее время. (Демо-режим)');
-    this.reset();
+
+    const name = document.getElementById('contactName').value;
+    const contact = document.getElementById('contactContact').value;
+    const task = document.getElementById('contactMessage').value;
+
+    const text = `Привет! Хочу заказать сайт/бота.%0A%0A*Имя:* ${name}%0A*Связь:* ${contact}%0A*Задача:* ${task}`;
+    const tgLink = `https://t.me/elloyer?text=${text}`;
+
+    const successEl = document.getElementById('formSuccess');
+    const submitBtn = document.getElementById('submitBtn');
+    
+    successEl.style.display = 'block';
+    submitBtn.innerText = 'Открываем Telegram...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.style.pointerEvents = 'none';
+
+    window.open(tgLink, '_blank');
+
+    setTimeout(() => {
+      successEl.style.display = 'none';
+      submitBtn.innerText = 'Отправить заявку';
+      submitBtn.style.opacity = '1';
+      submitBtn.style.pointerEvents = 'auto';
+      this.reset();
+    }, 3000);
   });
 </script>
 </body>
