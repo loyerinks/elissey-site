@@ -155,17 +155,20 @@
   .calc-extra-check::before { content: ""; width: 18px; height: 18px; border: 2px solid var(--border); border-radius: 6px; transition: 0.2s; }
   .calc-extra input:checked + label .calc-extra-check::before { background: var(--accent); border-color: var(--accent); background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 7L6 10L11 4' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: center; }
 
+  /* ИСПРАВЛЕННЫЙ ЧЕК (Больше никакой пустоты) */
   .calc-receipt {
     background: #111113; border-radius: 16px; padding: 32px;
-    display: flex; flex-direction: column; justify-content: space-between;
-    border: 1px solid var(--border); position: relative;
+    display: flex; flex-direction: column;
+    border: 1px solid var(--border); 
+    position: sticky; top: 100px; /* Прилипает при скролле */
+    align-self: start; /* Запрещает растягиваться по высоте */
   }
   .receipt-title { font-size: 13px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); font-weight: 600; margin-bottom: 24px; }
   .receipt-row { display: flex; justify-content: space-between; font-size: 15px; margin-bottom: 12px; color: var(--muted); }
   .receipt-row.total { font-family: var(--font-head); font-size: 20px; font-weight: 700; color: var(--ink); margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border); align-items: baseline; }
   .receipt-row.total span:last-child { font-size: 36px; color: var(--accent); }
   .receipt-time { font-size: 14px; color: var(--muted); margin-bottom: 24px; text-align: right; }
-  .calc-receipt .btn { width: 100%; }
+  .calc-receipt .btn { width: 100%; margin-top: 32px; }
 
   /* --- Портфолио --- */
   .portfolio-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column; transition: transform 0.3s; }
@@ -566,7 +569,6 @@
         <h3>Прямая связь</h3>
         <p>Выберите удобный мессенджер, чтобы обсудить проект.</p>
         
-        <!-- ОБНОВЛЕННЫЙ БЛОК С КНОПКАМИ -->
         <div class="contact-buttons">
           <a href="https://t.me/elloyer" target="_blank" class="btn btn-outline" style="border-color: var(--accent); color: var(--accent);">Telegram</a>
           <a href="https://max.ru/u/f9LHodD0cOKxqZgQ0nFDW0SYB83Ppo-XDV6m_Tko8hN7HrxeCF9PwQLTCUE" target="_blank" class="btn btn-outline">MAX</a>
@@ -576,7 +578,6 @@
   </section>
 </main>
 
-<!-- ОБНОВЛЕННЫЙ ФУТЕР -->
 <footer class="footer wrap">
   <div>© 2026 Елисей — Разработка сайтов и ботов</div>
   <div class="footer-links">
