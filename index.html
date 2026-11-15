@@ -463,34 +463,36 @@
           </div>
         </div>
 
-        <div class="calc-step">
+              <div class="calc-step">
           <div class="calc-step-title"><span>3</span> Дополнительно</div>
           <div class="calc-extras">
-            <!-- Атрибут data-show-for указывает, для каких типов показывать эту опцию -->
+            
+            <!-- Показывается для БОТА и САЙТОВ -->
+            <div class="calc-extra" data-show-for="bot,card,landing">
+              <input type="checkbox" id="ext-setup" value="Запуск и подключение" data-price="999" data-time="1">
+              <label for="ext-setup"><div class="calc-extra-check">Запуск и подключение</div><span class="extra-price">+999 ₽</span></label>
+            </div>
+
+            <!-- Показывается только для САЙТОВ -->
             <div class="calc-extra" data-show-for="card,landing">
               <input type="checkbox" id="ext-text" value="Тексты и подбор фото" data-price="999" data-time="1">
               <label for="ext-text"><div class="calc-extra-check">Тексты и фото</div><span class="extra-price">+999 ₽</span></label>
             </div>
             
+            <!-- Показывается для БОТА и САЙТОВ -->
             <div class="calc-extra" data-show-for="bot,card,landing">
-              <input type="checkbox" id="ext-setup" value="Настройка под ключ" data-price="999" data-time="1">
-              <label for="ext-setup"><div class="calc-extra-check">Настройка под ключ</div><span class="extra-price">+999 ₽</span></label>
+              <input type="checkbox" id="ext-pay" value="Онлайн-запись и оплата" data-price="1499" data-time="2">
+              <label for="ext-pay"><div class="calc-extra-check">Онлайн-запись/Оплата</div><span class="extra-price">+1 499 ₽</span></label>
             </div>
-            
-            <!-- "Индивидуальный дизайн" скрыт для ботов -->
+
+            <!-- Показывается только для САЙТОВ -->
             <div class="calc-extra" data-show-for="card,landing">
               <input type="checkbox" id="ext-design" value="Индивидуальный дизайн" data-price="1499" data-time="2">
               <label for="ext-design"><div class="calc-extra-check">Индивидуальный дизайн</div><span class="extra-price">+1 499 ₽</span></label>
             </div>
             
-            <div class="calc-extra" data-show-for="bot,card,landing">
-              <input type="checkbox" id="ext-pay" value="Онлайн-запись и оплата" data-price="1499" data-time="2">
-              <label for="ext-pay"><div class="calc-extra-check">Онлайн-запись/Оплата</div><span class="extra-price">+1 499 ₽</span></label>
-            </div>
           </div>
         </div>
-      </div>
-
       <div class="calc-receipt">
         <div>
           <div class="receipt-title">Смета проекта</div>
