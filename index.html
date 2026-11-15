@@ -60,7 +60,6 @@
   .nav a { font-size: 14px; font-weight: 500; color: var(--muted); transition: color 0.2s; }
   .nav a:hover { color: var(--ink); }
 
-  /* Бургер для мобилок */
   .burger { display: none; flex-direction: column; gap: 5px; width: 30px; cursor: pointer; z-index: 101; }
   .burger span { display: block; height: 2px; background: #fff; transition: 0.3s; width: 100%; border-radius: 2px; }
   
@@ -154,9 +153,13 @@
   .speed-desc { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .extra-price { font-size: 13px; color: var(--accent); font-weight: 600; }
 
+  /* Допы (теперь с анимацией скрытия) */
   .calc-extras { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .calc-extra { transition: opacity 0.3s, transform 0.3s; }
+  .calc-extra.hidden { display: none; } /* Скрываем полностью, чтобы не было пустых мест */
+  
   .calc-extra label {
-    display: flex; align-items: center; justify-content: space-between; padding: 12px 14px;
+    display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; height: 100%;
     background: var(--bg); border: 1px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 13px;
   }
   .calc-extra input { display: none; }
@@ -230,20 +233,12 @@
 
   /* --- CTA Блок --- */
   .cta-banner {
-    background: var(--surface);
-    border: 1px solid var(--accent);
-    border-radius: 24px;
-    padding: 48px;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    align-items: center;
-    box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);
-    margin-bottom: 60px;
+    background: var(--surface); border: 1px solid var(--accent); border-radius: 24px;
+    padding: 48px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px;
+    align-items: center; box-shadow: 0 0 40px rgba(59, 130, 246, 0.1); margin-bottom: 60px;
   }
   .cta-text h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 40px); color: var(--ink); margin-bottom: 16px; }
   .cta-text p { color: var(--muted); font-size: 16px; }
-  
   .cta-form-wrap { background: rgba(255,255,255,0.02); padding: 24px; border-radius: 16px; border: 1px solid var(--border); }
   .cta-input-group { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
   .cta-input-group input { background: transparent; border: none; color: var(--ink); font-size: 16px; outline: none; width: 100%; font-family: var(--font-body); }
@@ -471,19 +466,24 @@
         <div class="calc-step">
           <div class="calc-step-title"><span>3</span> Дополнительно</div>
           <div class="calc-extras">
-            <div class="calc-extra">
+            <!-- Атрибут data-show-for указывает, для каких типов показывать эту опцию -->
+            <div class="calc-extra" data-show-for="card,landing">
               <input type="checkbox" id="ext-text" value="Тексты и подбор фото" data-price="999" data-time="1">
               <label for="ext-text"><div class="calc-extra-check">Тексты и фото</div><span class="extra-price">+999 ₽</span></label>
             </div>
-            <div class="calc-extra">
+            
+            <div class="calc-extra" data-show-for="bot,card,landing">
               <input type="checkbox" id="ext-setup" value="Настройка под ключ" data-price="999" data-time="1">
               <label for="ext-setup"><div class="calc-extra-check">Настройка под ключ</div><span class="extra-price">+999 ₽</span></label>
             </div>
-            <div class="calc-extra">
+            
+            <!-- "Индивидуальный дизайн" скрыт для ботов -->
+            <div class="calc-extra" data-show-for="card,landing">
               <input type="checkbox" id="ext-design" value="Индивидуальный дизайн" data-price="1499" data-time="2">
               <label for="ext-design"><div class="calc-extra-check">Индивидуальный дизайн</div><span class="extra-price">+1 499 ₽</span></label>
             </div>
-            <div class="calc-extra">
+            
+            <div class="calc-extra" data-show-for="bot,card,landing">
               <input type="checkbox" id="ext-pay" value="Онлайн-запись и оплата" data-price="1499" data-time="2">
               <label for="ext-pay"><div class="calc-extra-check">Онлайн-запись/Оплата</div><span class="extra-price">+1 499 ₽</span></label>
             </div>
@@ -741,6 +741,28 @@
   const receiptExtrasList = document.getElementById('receiptExtrasList');
   const calcSendBtn = document.getElementById('calcSendBtn');
 
+  // ФУНКЦИЯ СКРЫТИЯ/ПОКАЗА ОПЦИЙ
+  function updateExtrasVisibility() {
+    const selectedType = document.querySelector('input[name="baseType"]:checked').value;
+    const extrasElements = document.querySelectorAll('.calc-extra');
+    
+    extrasElements.forEach(el => {
+      const showFor = el.getAttribute('data-show-for').split(',');
+      
+      if (showFor.includes(selectedType)) {
+        el.classList.remove('hidden');
+      } else {
+        el.classList.add('hidden');
+        // Снимаем галочку, если опция скрывается, чтобы она не влияла на цену
+        const checkbox = el.querySelector('input[type="checkbox"]');
+        if (checkbox.checked) {
+          checkbox.checked = false;
+        }
+      }
+    });
+    calculate(); // Пересчитываем цену после скрытия/показа
+  }
+
   function calculate() {
     let basePrice = 0; let baseTime = 0; let baseName = '';
     let multiplier = 1; let timeMod = 0; let speedName = '';
@@ -763,7 +785,8 @@
     });
 
     extrasCheckboxes.forEach(checkbox => {
-      if (checkbox.checked) {
+      // Учитываем только те чекбоксы, которые сейчас видны (не имеют класс hidden у родителя)
+      if (checkbox.checked && !checkbox.closest('.calc-extra').classList.contains('hidden')) {
         let price = parseInt(checkbox.dataset.price);
         extrasPrice += price;
         extrasTime += parseInt(checkbox.dataset.time);
@@ -793,9 +816,13 @@
     calcSendBtn.href = `https://t.me/elloyer?text=${message}`;
   }
 
-  baseRadios.forEach(r => r.addEventListener('change', calculate));
+  // Слушатели событий
+  baseRadios.forEach(r => r.addEventListener('change', updateExtrasVisibility)); // При смене типа обновляем видимость
   speedRadios.forEach(r => r.addEventListener('change', calculate));
   extrasCheckboxes.forEach(c => c.addEventListener('change', calculate));
+  
+  // Запуск при загрузке
+  updateExtrasVisibility();
   calculate();
 
   // --- ОТПРАВКА ФОРМЫ В TELEGRAM БОТА ---
@@ -850,7 +877,6 @@
   document.getElementById('ctaForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    // Используем те же настройки бота
     const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; 
     const CHAT_ID = 'YOUR_CHAT_ID_HERE';     
 
