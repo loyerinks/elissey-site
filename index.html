@@ -253,10 +253,9 @@
 
 
   /* =========================================
-     АДАПТАЦИЯ ПОД ПЛАНШЕТЫ И ТЕЛЕФОНЫ (МОБИЛЬНАЯ ВЕРСИЯ)
+     АДАПТАЦИЯ ПОД ПЛАНШЕТЫ И ТЕЛЕФОНЫ
      ========================================= */
 
-  /* Планшеты и небольшие ноутбуки */
   @media (max-width: 900px) {
     .section-pad { padding: 60px 0; }
     .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 100px; padding-bottom: 60px; text-align: center; }
@@ -267,7 +266,7 @@
     .bento-item.large, .bento-item.tall { grid-column: auto; grid-row: auto; }
 
     .calc-wrapper { grid-template-columns: 1fr; padding: 24px; gap: 24px; }
-    .calc-receipt { position: static; } /* Отключаем прилипание на мобилках */
+    .calc-receipt { position: static; }
 
     .portfolio-card { flex-direction: column; }
     .portfolio-img-wrap { width: 100%; height: 250px; border-right: none; border-bottom: 1px solid var(--border); }
@@ -276,7 +275,6 @@
     .process-grid { grid-template-columns: repeat(2, 1fr); }
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     
-    /* Мобильное меню */
     .burger { display: flex; }
     .nav { 
       display: none; 
@@ -290,7 +288,6 @@
     .nav .btn { width: 100%; margin-top: 10px; }
   }
 
-  /* Телефоны */
   @media (max-width: 600px) {
     .section-pad { padding: 50px 0; }
     .wrap { padding: 0 16px; }
@@ -322,7 +319,6 @@
       elloyer
     </div>
     
-    <!-- Кнопка бургер для мобильных -->
     <div class="burger" id="burger">
       <span></span><span></span><span></span>
     </div>
@@ -632,7 +628,7 @@
         <button type="submit" class="btn btn-accent" style="width: 100%;" id="submitBtn">Отправить заявку</button>
         
         <div id="formSuccess" style="display: none; color: var(--success); text-align: center; margin-top: 16px; font-size: 14px; font-weight: 500;">
-          Заявка сформирована! Открываем Telegram...
+          Заявка успешно отправлена! Я свяжусь с вами.
         </div>
       </form>
 
@@ -679,7 +675,6 @@
     nav.classList.toggle('active');
   });
 
-  // Закрываем меню при клике на ссылку
   nav.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       nav.classList.remove('active');
@@ -755,72 +750,57 @@
   extrasCheckboxes.forEach(c => c.addEventListener('change', calculate));
   calculate();
 
-  // --- ЛОГИКА ФОРМЫ (ОТПРАВКА В ТЕЛЕГРАМ) ---
-  document.getElementById('contactForm').addEventListener('submit', function(e) {
+  // --- ОТПРАВКА ФОРМЫ В TELEGRAM БОТА ---
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
     e.preventDefault();
+
+    // ВСТАВЬ СЮДА СВОЙ ТОКЕН И CHAT ID
+    const BOT_TOKEN = '8830011206:AAFbKy411gXtTXR0UZ72lh-lh_0E-VXzkxA'; 
+    const CHAT_ID = 'https://core.telegram.org/bots/api';     
+
+    if (BOT_TOKEN === '8830011206:AAFbKy411gXtTXR0UZ72lh-lh_0E-VXzkxA' || CHAT_ID === 'https://core.telegram.org/bots/api') {
+      alert('Ошибка: Настройки Telegram-бота не заполнены в коде.');
+      return;
+    }
 
     const name = document.getElementById('contactName').value;
     const contact = document.getElementById('contactContact').value;
     const task = document.getElementById('contactMessage').value;
 
-    const text = `Привет! Хочу заказать сайт/бота.%0A%0A*Имя:* ${name}%0A*Связь:* ${contact}%0A*Задача:* ${task}`;
-    const tgLink = `https://t.me/elloyer?text=${text}`;
+    const text = `🔥 *Новая заявка с сайта!*%0A%0A👤 *Имя:* ${name}%0A📞 *Связь:* ${contact}%0A📝 *Задача:* ${task}`;
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}&parse_mode=Markdown`;
 
     const successEl = document.getElementById('formSuccess');
     const submitBtn = document.getElementById('submitBtn');
-    
-    successEl.style.display = 'block';
-    submitBtn.innerText = 'Открываем Telegram...';
+
+    // Блокируем кнопку на время отправки
+    submitBtn.innerText = 'Отправка...';
     submitBtn.style.opacity = '0.7';
     submitBtn.style.pointerEvents = 'none';
 
-        // --- НАСТРОЙКИ БОТА ---
-    const BOT_TOKEN = 'ВСТАВЬ_СЮДА_СВОЙ_ТОКЕН';
-    const CHAT_ID = 'ВСТАВЬ_СЮДА_СВОЙ_CHAT_ID';
-    
-    // Формируем текст сообщения
-    const text = `🔥 <b>Новая заявка с сайта!</b>%0A%0A👤 <b>Имя:</b> ${name}%0A📞 <b>Связь:</b> ${contact}%0A📝 <b>Задача:</b> ${task}`;
-    
-    // Отправляем запрос напрямую в Telegram API
-    const url = `https://api.telegram.org/bot${8830011206:AAFbKy411gXtTXR0UZ72lh-lh_0E-VXzkxA}/sendMessage`;
-    
-    fetch(url, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        chat_id: CHAT_ID,
-        text: text,
-        parse_mode: 'HTML'
-      })
-    })
-    .then(response => {
+    try {
+      const response = await fetch(url);
       if (response.ok) {
         // Успех
         successEl.style.display = 'block';
         submitBtn.innerText = 'Отправлено!';
+        this.reset();
+        
         setTimeout(() => {
           successEl.style.display = 'none';
           submitBtn.innerText = 'Отправить заявку';
           submitBtn.style.opacity = '1';
           submitBtn.style.pointerEvents = 'auto';
-          document.getElementById('contactForm').reset();
-        }, 3000);
+        }, 4000);
       } else {
-        alert('Ошибка при отправке. Попробуйте позже.');
+        throw new Error('Ошибка отправки');
       }
-    })
-    .catch(error => {
-      console.error(error);
-      alert('Ошибка сети. Проверьте интернет.');
-    });
-
-    setTimeout(() => {
-      successEl.style.display = 'none';
+    } catch (error) {
+      alert('Не удалось отправить заявку. Попробуйте еще раз или напишите мне в Telegram.');
       submitBtn.innerText = 'Отправить заявку';
       submitBtn.style.opacity = '1';
       submitBtn.style.pointerEvents = 'auto';
-      this.reset();
-    }, 3000);
+    }
   });
 </script>
 </body>
