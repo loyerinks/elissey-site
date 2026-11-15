@@ -93,12 +93,14 @@
   .hero p { font-size: 18px; color: #ccc; margin-bottom: 40px; max-width: 500px; }
   .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
-  /* --- Сплит-секции (О трассе и Школа) --- */
-  .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  /* --- Сплит-секции --- */
+  .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
   @media (max-width: 900px) { .split-section { grid-template-columns: 1fr; gap: 40px; } }
+  
   .image-frame {
     border-radius: var(--radius); overflow: hidden; position: relative;
     border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    height: 100%; min-height: 450px;
   }
   .image-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .image-frame:hover img { transform: scale(1.05); }
@@ -115,6 +117,28 @@
   }
   .feature-text h4 { font-family: var(--font-head); font-size: 18px; margin-bottom: 4px; }
   .feature-text p { font-size: 14px; color: var(--muted); margin: 0; }
+
+  /* --- Блок Школа (Исправленный) --- */
+  .school-block { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 60px; align-items: center; }
+  @media (max-width: 900px) { .school-block { grid-template-columns: 1fr; gap: 40px; } }
+
+  .school-features { display: flex; flex-direction: column; gap: 12px; margin-bottom: 32px; }
+  .school-feature-item {
+    display: flex; gap: 16px; padding: 16px 20px; background: var(--bg); 
+    border: 1px solid var(--border); border-radius: 12px; align-items: center;
+  }
+  .school-feature-icon {
+    width: 40px; height: 40px; font-size: 20px; display: flex; align-items: center; justify-content: center;
+    background: rgba(255,59,48,0.1); border-radius: 8px; flex-shrink: 0;
+  }
+  .school-feature-text h4 { font-family: var(--font-head); font-size: 16px; margin-bottom: 2px; }
+  .school-feature-text p { font-size: 13px; color: var(--muted); margin: 0; }
+
+  .school-image {
+    border-radius: var(--radius); overflow: hidden; height: 100%; min-height: 500px;
+    border: 1px solid var(--border); box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+  }
+  .school-image img { width: 100%; height: 100%; object-fit: cover; }
 
   /* --- Безопасность --- */
   .safety-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
@@ -151,7 +175,7 @@
   .price-list li { font-size: 15px; color: var(--muted); margin-bottom: 14px; padding-left: 24px; position: relative; }
   .price-list li::before { content: "→"; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
 
-  /* --- Команды --- */
+  /* --- Команды (Фон с красной машиной) --- */
   .team-banner { border-radius: var(--radius); overflow: hidden; position: relative; display: flex; align-items: center; min-height: 450px; border: 1px solid var(--border); }
   .team-bg { position: absolute; inset: 0; z-index: -1; background: url('img/kart-4.jpg') center/cover no-repeat; }
   .team-bg::after { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(10,10,12,0.95) 0%, rgba(10,10,12,0.5) 60%, transparent 100%); }
@@ -264,7 +288,7 @@
 <!-- Блок «О трассе» -->
 <section class="section-pad wrap" id="track">
   <div class="split-section reveal">
-    <div class="image-frame" style="height: 550px;">
+    <div class="image-frame">
       <img src="img/kart-2.jpg" alt="Заезд на картах" />
     </div>
     <div>
@@ -298,42 +322,43 @@
   </div>
 </section>
 
-<!-- НОВЫЙ БЛОК: Детская школа картинга -->
+<!-- Блок Школа (ИСПРАВЛЕННЫЙ) -->
 <section class="section-pad wrap" id="school" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
-  <div class="split-section reveal">
+  <div class="school-block reveal">
     <div>
-      <h2 class="h2-section">Школа картинга <br>для детей</h2>
-      <p style="color: var(--muted); margin-bottom: 24px; font-size: 16px;">Дайте ребенку эмоции, которые не сравнятся с компьютерными играми. Наши тренеры обучают безопасному вождению с 8 лет.</p>
+      <h2 class="h2-section" style="margin-bottom: 12px;">Школа картинга <br>для детей</h2>
+      <p style="color: var(--muted); margin-bottom: 32px; font-size: 16px; max-width: 480px;">Дайте ребенку эмоции, которые не сравнятся с компьютерными играми. Наши тренеры обучают безопасному вождению с 8 лет.</p>
       
-      <ul class="feature-grid" style="margin-bottom: 32px;">
-        <li class="feature-item" style="padding: 16px; margin:0;">
-          <div class="feature-icon" style="width: 40px; height: 40px; font-size: 20px;">🛡️</div>
-          <div class="feature-text">
-            <h4 style="font-size: 16px; margin-bottom: 2px;">Безопасность</h4>
-            <p style="font-size: 13px;">Скорость ограничена, маршалы следят за каждым кругом.</p>
+      <div class="school-features">
+        <div class="school-feature-item">
+          <div class="school-feature-icon">🛡️</div>
+          <div class="school-feature-text">
+            <h4>Безопасность</h4>
+            <p>Скорость ограничена, маршалы следят за каждым кругом.</p>
           </div>
-        </li>
-        <li class="feature-item" style="padding: 16px; margin:0;">
-          <div class="feature-icon" style="width: 40px; height: 40px; font-size: 20px;">🏆</div>
-          <div class="feature-text">
-            <h4 style="font-size: 16px; margin-bottom: 2px;">Опытные тренеры</h4>
-            <p style="font-size: 13px;">Мастера спорта, которые найдут подход к любому ребенку.</p>
+        </div>
+        <div class="school-feature-item">
+          <div class="school-feature-icon">🏆</div>
+          <div class="school-feature-text">
+            <h4>Опытные тренеры</h4>
+            <p>Мастера спорта, которые найдут подход к любому ребенку.</p>
           </div>
-        </li>
-        <li class="feature-item" style="padding: 16px; margin:0;">
-          <div class="feature-icon" style="width: 40px; height: 40px; font-size: 20px;">🏎️</div>
-          <div class="feature-text">
-            <h4 style="font-size: 16px; margin-bottom: 2px;">Своя экипировка</h4>
-            <p style="font-size: 13px;">Мы выдаем детские шлемы и перчатки нужного размера.</p>
+        </div>
+        <div class="school-feature-item">
+          <div class="school-feature-icon">🏎️</div>
+          <div class="school-feature-text">
+            <h4>Своя экипировка</h4>
+            <p>Мы выдаем детские шлемы и перчатки нужного размера.</p>
           </div>
-        </li>
-      </ul>
+        </div>
+      </div>
       
       <a href="#booking" class="btn btn-accent">Записаться на пробный заезд</a>
     </div>
     
-    <div class="image-frame" style="height: 500px;">
-      <img src="img/kart-4.jpg" alt="Детская школа картинга" />
+    <div class="school-image">
+      <!-- Сюда нужно будет закинуть новую картинку с детьми и назвать её kart-6.jpg -->
+      <img src="img/kart-6.jpg" alt="Детская школа картинга" />
     </div>
   </div>
 </section>
@@ -419,9 +444,10 @@
   </div>
 </section>
 
-<!-- Команды -->
+<!-- Команды (ФОН С КРАСНОЙ МАШИНОЙ) -->
 <section class="section-pad wrap" id="team">
   <div class="team-banner reveal">
+    <!-- Тут теперь используется картинка kart-4 (с красной машиной) -->
     <div class="team-bg"></div>
     <div class="team-content">
       <h2>Аренда трассы для компании</h2>
