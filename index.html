@@ -228,6 +228,29 @@
   .faq-item[open] summary::after { content: "–"; }
   .faq-item p { padding: 0 24px 20px; color: var(--muted); font-size: 15px; }
 
+  /* --- CTA Блок --- */
+  .cta-banner {
+    background: var(--surface);
+    border: 1px solid var(--accent);
+    border-radius: 24px;
+    padding: 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.1);
+    margin-bottom: 60px;
+  }
+  .cta-text h2 { font-family: var(--font-head); font-size: clamp(28px, 4vw, 40px); color: var(--ink); margin-bottom: 16px; }
+  .cta-text p { color: var(--muted); font-size: 16px; }
+  
+  .cta-form-wrap { background: rgba(255,255,255,0.02); padding: 24px; border-radius: 16px; border: 1px solid var(--border); }
+  .cta-input-group { display: flex; align-items: center; background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 12px 16px; margin-bottom: 16px; }
+  .cta-input-group input { background: transparent; border: none; color: var(--ink); font-size: 16px; outline: none; width: 100%; font-family: var(--font-body); }
+  .cta-checkbox { display: flex; align-items: flex-start; gap: 10px; color: var(--muted); font-size: 12px; margin-bottom: 20px; cursor: pointer; text-align: left; }
+  .cta-checkbox input { margin-top: 3px; width: 16px; height: 16px; accent-color: var(--accent); }
+  .cta-btn { width: 100%; background: var(--accent); color: #fff; padding: 16px; font-weight: 700; }
+
   /* --- Контакты --- */
   .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; margin-top: 40px; }
   .form-group { margin-bottom: 20px; }
@@ -251,11 +274,9 @@
   .footer-links { display: flex; gap: 16px; }
   .footer-links a:hover { color: var(--ink); }
 
-
   /* =========================================
      АДАПТАЦИЯ ПОД ПЛАНШЕТЫ И ТЕЛЕФОНЫ
      ========================================= */
-
   @media (max-width: 900px) {
     .section-pad { padding: 60px 0; }
     .hero { grid-template-columns: 1fr; gap: 40px; padding-top: 100px; padding-bottom: 60px; text-align: center; }
@@ -273,6 +294,10 @@
     .portfolio-body { width: 100%; padding: 32px 24px; }
 
     .process-grid { grid-template-columns: repeat(2, 1fr); }
+    
+    .cta-banner { grid-template-columns: 1fr; padding: 32px 24px; text-align: center; }
+    .cta-text p { margin-bottom: 24px; }
+    
     .contact-grid { grid-template-columns: 1fr; gap: 40px; }
     
     .burger { display: flex; }
@@ -605,6 +630,30 @@
     </div>
   </section>
 
+  <!-- НОВЫЙ CTA БЛОК -->
+  <section class="section-pad wrap" id="cta-banner">
+    <div class="cta-banner reveal">
+      <div class="cta-text">
+        <h2>Обсудим ваш проект?</h2>
+        <p>Оставьте номер, и я напишу вам в Telegram в течение 15 минут. Без навязчивых звонков и спама.</p>
+      </div>
+      <div class="cta-form-wrap">
+        <form id="ctaForm">
+          <div class="cta-input-group">
+            <span style="font-size: 20px; margin-right: 10px;">✈️</span>
+            <input type="tel" id="ctaPhone" placeholder="+7 (000) 000-00-00" required />
+          </div>
+          <label class="cta-checkbox">
+            <input type="checkbox" required />
+            <span>Я даю согласие на обработку персональных данных</span>
+          </label>
+          <button type="submit" class="btn cta-btn" id="ctaSubmit">Написать мне</button>
+          <div id="ctaSuccess" style="display: none; color: var(--success); text-align: center; margin-top: 10px; font-size: 14px; font-weight: 500;">Отправлено! Ждите сообщение.</div>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <section class="section-pad wrap" id="contact">
     <div class="reveal">
       <h2 style="font-family: var(--font-head); font-size: 32px;">Готовы начать?</h2>
@@ -755,10 +804,10 @@
     e.preventDefault();
 
     // ВСТАВЬ СЮДА СВОЙ ТОКЕН И CHAT ID
-    const BOT_TOKEN = '8830011206:AAFbKy411gXtTXR0UZ72lh-lh_0E-VXzkxA'; 
-    const CHAT_ID = '5752905956';     
+    const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; 
+    const CHAT_ID = 'YOUR_CHAT_ID_HERE';     
 
-    if (BOT_TOKEN === 'ааа' || CHAT_ID === 'ааа') {
+    if (BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE' || CHAT_ID === 'YOUR_CHAT_ID_HERE') {
       alert('Ошибка: Настройки Telegram-бота не заполнены в коде.');
       return;
     }
@@ -773,7 +822,6 @@
     const successEl = document.getElementById('formSuccess');
     const submitBtn = document.getElementById('submitBtn');
 
-    // Блокируем кнопку на время отправки
     submitBtn.innerText = 'Отправка...';
     submitBtn.style.opacity = '0.7';
     submitBtn.style.pointerEvents = 'none';
@@ -781,23 +829,65 @@
     try {
       const response = await fetch(url);
       if (response.ok) {
-        // Успех
         successEl.style.display = 'block';
         submitBtn.innerText = 'Отправлено!';
         this.reset();
-        
         setTimeout(() => {
           successEl.style.display = 'none';
           submitBtn.innerText = 'Отправить заявку';
           submitBtn.style.opacity = '1';
           submitBtn.style.pointerEvents = 'auto';
         }, 4000);
-      } else {
-        throw new Error('Ошибка отправки');
-      }
+      } else { throw new Error('Ошибка'); }
     } catch (error) {
-      alert('Не удалось отправить заявку. Попробуйте еще раз или напишите мне в Telegram.');
+      alert('Не удалось отправить заявку. Попробуйте позже.');
       submitBtn.innerText = 'Отправить заявку';
+      submitBtn.style.opacity = '1';
+      submitBtn.style.pointerEvents = 'auto';
+    }
+  });
+
+  // --- ОТПРАВКА CTA ФОРМЫ В TELEGRAM БОТА ---
+  document.getElementById('ctaForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+
+    // Используем те же настройки бота
+    const BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; 
+    const CHAT_ID = 'YOUR_CHAT_ID_HERE';     
+
+    if (BOT_TOKEN === 'YOUR_BOT_TOKEN_HERE' || CHAT_ID === 'YOUR_CHAT_ID_HERE') {
+      alert('Ошибка: Настройки Telegram-бота не заполнены в коде.');
+      return;
+    }
+
+    const phone = document.getElementById('ctaPhone').value;
+
+    const text = `🔥 *Заявка с CTA блока!*%0A%0A📞 *Телефон:* ${phone}`;
+    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}&parse_mode=Markdown`;
+
+    const successEl = document.getElementById('ctaSuccess');
+    const submitBtn = document.getElementById('ctaSubmit');
+
+    submitBtn.innerText = 'Отправка...';
+    submitBtn.style.opacity = '0.7';
+    submitBtn.style.pointerEvents = 'none';
+
+    try {
+      const response = await fetch(url);
+      if (response.ok) {
+        successEl.style.display = 'block';
+        submitBtn.innerText = 'Отправлено!';
+        this.reset();
+        setTimeout(() => {
+          successEl.style.display = 'none';
+          submitBtn.innerText = 'Написать мне';
+          submitBtn.style.opacity = '1';
+          submitBtn.style.pointerEvents = 'auto';
+        }, 4000);
+      } else { throw new Error('Ошибка'); }
+    } catch (error) {
+      alert('Не удалось отправить. Попробуйте позже.');
+      submitBtn.innerText = 'Написать мне';
       submitBtn.style.opacity = '1';
       submitBtn.style.pointerEvents = 'auto';
     }
