@@ -774,7 +774,45 @@
     submitBtn.style.opacity = '0.7';
     submitBtn.style.pointerEvents = 'none';
 
-    window.open(tgLink, '_blank');
+        // --- НАСТРОЙКИ БОТА ---
+    const BOT_TOKEN = 'ВСТАВЬ_СЮДА_СВОЙ_ТОКЕН';
+    const CHAT_ID = 'ВСТАВЬ_СЮДА_СВОЙ_CHAT_ID';
+    
+    // Формируем текст сообщения
+    const text = `🔥 <b>Новая заявка с сайта!</b>%0A%0A👤 <b>Имя:</b> ${name}%0A📞 <b>Связь:</b> ${contact}%0A📝 <b>Задача:</b> ${task}`;
+    
+    // Отправляем запрос напрямую в Telegram API
+    const url = `https://api.telegram.org/bot${8830011206:AAFbKy411gXtTXR0UZ72lh-lh_0E-VXzkxA}/sendMessage`;
+    
+    fetch(url, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: CHAT_ID,
+        text: text,
+        parse_mode: 'HTML'
+      })
+    })
+    .then(response => {
+      if (response.ok) {
+        // Успех
+        successEl.style.display = 'block';
+        submitBtn.innerText = 'Отправлено!';
+        setTimeout(() => {
+          successEl.style.display = 'none';
+          submitBtn.innerText = 'Отправить заявку';
+          submitBtn.style.opacity = '1';
+          submitBtn.style.pointerEvents = 'auto';
+          document.getElementById('contactForm').reset();
+        }, 3000);
+      } else {
+        alert('Ошибка при отправке. Попробуйте позже.');
+      }
+    })
+    .catch(error => {
+      console.error(error);
+      alert('Ошибка сети. Проверьте интернет.');
+    });
 
     setTimeout(() => {
       successEl.style.display = 'none';
