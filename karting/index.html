@@ -93,7 +93,7 @@
   .hero p { font-size: 18px; color: #ccc; margin-bottom: 40px; max-width: 500px; }
   .hero-actions { display: flex; gap: 16px; flex-wrap: wrap; }
 
-  /* --- О трассе --- */
+  /* --- Сплит-секции (О трассе и Школа) --- */
   .split-section { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
   @media (max-width: 900px) { .split-section { grid-template-columns: 1fr; gap: 40px; } }
   .image-frame {
@@ -102,6 +102,7 @@
   }
   .image-frame img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s; }
   .image-frame:hover img { transform: scale(1.05); }
+  
   .feature-grid { display: grid; gap: 16px; margin-top: 30px; }
   .feature-item {
     display: flex; gap: 16px; padding: 20px; background: var(--surface); border-radius: var(--radius);
@@ -115,7 +116,7 @@
   .feature-text h4 { font-family: var(--font-head); font-size: 18px; margin-bottom: 4px; }
   .feature-text p { font-size: 14px; color: var(--muted); margin: 0; }
 
-  /* --- Безопасность (НОВЫЙ БЛОК) --- */
+  /* --- Безопасность --- */
   .safety-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 40px; }
   @media (max-width: 900px) { .safety-grid { grid-template-columns: 1fr; } }
   .safety-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 32px; text-align: center; }
@@ -202,7 +203,7 @@
   .map-placeholder::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,12,0.9), transparent); }
   .map-placeholder span { position: relative; z-index: 1; font-weight: 500; }
 
-  /* --- FAQ (НОВЫЙ БЛОК) --- */
+  /* --- FAQ --- */
   .faq-list { max-width: 800px; margin: 40px auto 0; display: grid; gap: 12px; }
   .faq-item { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
   .faq-item summary { padding: 24px; font-family: var(--font-head); font-size: 18px; cursor: pointer; list-style: none; display: flex; justify-content: space-between; align-items: center; color: #fff; }
@@ -234,8 +235,7 @@
     <a href="#" class="logo">АПЕКС<span>_</span>КАРТ</a>
     <nav class="nav" id="nav">
       <a href="#track">Трасса</a>
-      <a href="#safety">Безопасность</a>
-      <a href="#gallery">Галерея</a>
+      <a href="#school">Школа</a>
       <a href="#prices">Цены</a>
       <a href="#booking" class="btn btn-accent">Забронировать</a>
     </nav>
@@ -298,7 +298,47 @@
   </div>
 </section>
 
-<!-- НОВЫЙ БЛОК: Безопасность -->
+<!-- НОВЫЙ БЛОК: Детская школа картинга -->
+<section class="section-pad wrap" id="school" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
+  <div class="split-section reveal">
+    <div>
+      <h2 class="h2-section">Школа картинга <br>для детей</h2>
+      <p style="color: var(--muted); margin-bottom: 24px; font-size: 16px;">Дайте ребенку эмоции, которые не сравнятся с компьютерными играми. Наши тренеры обучают безопасному вождению с 8 лет.</p>
+      
+      <ul class="feature-grid" style="margin-bottom: 32px;">
+        <li class="feature-item" style="padding: 16px; margin:0;">
+          <div class="feature-icon" style="width: 40px; height: 40px; font-size: 20px;">🛡️</div>
+          <div class="feature-text">
+            <h4 style="font-size: 16px; margin-bottom: 2px;">Безопасность</h4>
+            <p style="font-size: 13px;">Скорость ограничена, маршалы следят за каждым кругом.</p>
+          </div>
+        </li>
+        <li class="feature-item" style="padding: 16px; margin:0;">
+          <div class="feature-icon" style="width: 40px; height: 40px; font-size: 20px;">🏆</div>
+          <div class="feature-text">
+            <h4 style="font-size: 16px; margin-bottom: 2px;">Опытные тренеры</h4>
+            <p style="font-size: 13px;">Мастера спорта, которые найдут подход к любому ребенку.</p>
+          </div>
+        </li>
+        <li class="feature-item" style="padding: 16px; margin:0;">
+          <div class="feature-icon" style="width: 40px; height: 40px; font-size: 20px;">🏎️</div>
+          <div class="feature-text">
+            <h4 style="font-size: 16px; margin-bottom: 2px;">Своя экипировка</h4>
+            <p style="font-size: 13px;">Мы выдаем детские шлемы и перчатки нужного размера.</p>
+          </div>
+        </li>
+      </ul>
+      
+      <a href="#booking" class="btn btn-accent">Записаться на пробный заезд</a>
+    </div>
+    
+    <div class="image-frame" style="height: 500px;">
+      <img src="img/kart-4.jpg" alt="Детская школа картинга" />
+    </div>
+  </div>
+</section>
+
+<!-- Блок Безопасность -->
 <section class="section-pad wrap" id="safety">
   <div class="text-center reveal">
     <h2 class="h2-section">Безопасность — наш приоритет</h2>
@@ -462,7 +502,7 @@
   </div>
 </section>
 
-<!-- НОВЫЙ БЛОК: FAQ -->
+<!-- FAQ -->
 <section class="section-pad wrap" id="faq" style="background: var(--surface); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border);">
   <div class="text-center reveal">
     <h2 class="h2-section">Частые вопросы</h2>
@@ -479,7 +519,7 @@
     </details>
     <details class="faq-item">
       <summary>Со скольки лет пускаете на трассу?</summary>
-      <p>На взрослые карты — с 14 лет. Для детей от 8 лет есть специальные детские карты (рост от 130 см).</p>
+      <p>На взрослые карты — с 14 лет. Для детей от 8 лет есть специальные детские карты (рост от 130 см) и школа картинга.</p>
     </details>
     <details class="faq-item">
       <summary>Работаете ли вы в дождь?</summary>
@@ -495,6 +535,7 @@
 </footer>
 
 <script>
+  // Анимация появления при скролле
   const revealElements = document.querySelectorAll('.reveal');
   const revealObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -506,20 +547,24 @@
   }, { threshold: 0.1 });
   revealElements.forEach(el => revealObserver.observe(el));
 
+  // Мобильное меню
   const burger = document.getElementById('burger');
   const nav = document.getElementById('nav');
   burger.addEventListener('click', () => nav.classList.toggle('active'));
 
+  // Выбор тарифа
   window.selectTariff = function(tariffName) {
     document.getElementById('tariff').value = tariffName;
     document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
   };
 
+  // Дата по умолчанию
   const dateInput = document.getElementById('date');
   const today = new Date().toISOString().split('T')[0];
   dateInput.min = today;
   dateInput.value = today;
 
+  // Обработка формы (демо-режим для портфолио)
   document.getElementById('bookForm').addEventListener('submit', function(e) {
     e.preventDefault();
     
@@ -530,7 +575,8 @@
 
     const text = `Новая заявка!%0AИмя: ${name}%0AТелефон: ${phone}%0AДата: ${date}%0AТариф: ${tariff}`;
     
-    const tgLink = `https://t.me/share/url?url=https://kitty-dev.team&text=${text}`;
+    // Демо-ссылка (открывает шаринг в ТГ)
+    const tgLink = `https://t.me/share/url?url=https://elloyer.space&text=${text}`;
     
     const resultBox = document.getElementById('resultBox');
     document.getElementById('tgLink').href = tgLink;
