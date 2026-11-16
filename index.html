@@ -446,28 +446,42 @@
     e.preventDefault();
     
     // ВСТАВЬ СВОИ ДАННЫЕ СЮДА:
-    const BOT_TOKEN = '8830011206:AAFbKy411gXtTXR0UZ72lh-lh_0E-VXzkxA'; 
-    const CHAT_ID = '5752905956';     
-
+  document.getElementById('contactForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
     const name = document.getElementById('contactName').value; 
     const contact = document.getElementById('contactContact').value; 
     const task = document.getElementById('contactMessage').value;
-    const text = `🔥 *Новая заявка!*%0A👤 *Имя:* ${name}%0A📞 *Связь:* ${contact}%0A📝 *Задача:* ${task}`;
-    const url = `https://api.telegram.org/bot${BOT_TOKEN}/sendMessage?chat_id=${CHAT_ID}&text=${text}&parse_mode=Markdown`;
     
     const successEl = document.getElementById('formSuccess'); 
     const submitBtn = document.getElementById('submitBtn');
-    submitBtn.innerText = 'Отправка...'; submitBtn.style.opacity = '0.7'; submitBtn.style.pointerEvents = 'none';
+    submitBtn.innerText = 'Отправка...'; 
+    submitBtn.style.opacity = '0.7'; 
+    submitBtn.style.pointerEvents = 'none';
     
     try {
-      const response = await fetch(url);
+      // ТВОЙ ЗАЩИЩЕННЫЙ ВОРКЕР
+      const WORKER_URL = 'https://elloyer-form.aisik20267.workers.dev/'; 
+      
+      const response = await fetch(WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, contact, task })
+      });
+
       if (response.ok) { 
         successEl.style.display = 'block'; 
         submitBtn.innerText = 'Отправлено!'; 
         this.reset(); 
-        setTimeout(() => { successEl.style.display = 'none'; submitBtn.innerText = 'Отправить заявку'; submitBtn.style.opacity = '1'; submitBtn.style.pointerEvents = 'auto'; }, 4000); 
-      } 
-      else { throw new Error('Ошибка'); }
+        setTimeout(() => { 
+          successEl.style.display = 'none'; 
+          submitBtn.innerText = 'Отправить заявку'; 
+          submitBtn.style.opacity = '1'; 
+          submitBtn.style.pointerEvents = 'auto'; 
+        }, 4000); 
+      } else { 
+        throw new Error('Ошибка'); 
+      }
     } catch (error) { 
       alert('Ошибка отправки. Проверьте интернет.'); 
       submitBtn.innerText = 'Отправить заявку'; 
