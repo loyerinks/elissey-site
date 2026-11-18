@@ -273,6 +273,11 @@
   </section>
 
   <section class="section-pad wrap" id="calc">
+        <div class="reveal" style="background: linear-gradient(135deg, rgba(35, 134, 54, 0.1), rgba(46, 160, 67, 0.1)); border: 1px solid #2ea43; border-radius: 20px; padding: 25px; margin-bottom: 30px; text-align: center;">
+      <div style="font-size: 2rem; margin-bottom: 10px;">🎁</div>
+      <h3 style="font-family: var(--font-head); color: #2ea43; margin-bottom: 10px;">Первый месяц поддержки — бесплатно!</h3>
+      <p style="color: var(--muted); font-size: 15px;">В стоимость любого проекта уже входит 30 дней технической поддержки: исправление багов, мелкие правки и консультации.</p>
+    </div>
     <div class="reveal">
       <h2 style="font-family: var(--font-head); font-size: 32px;">Калькулятор</h2>
       <p style="color: var(--muted); font-size: 16px; margin-top: 8px;">Соберите свой проект и узнайте примерную цену.</p>
@@ -296,24 +301,59 @@
         </div>
         <div class="calc-step">
           <div class="calc-step-title"><span>3</span> Дополнительно</div>
-          <div class="calc-extras">
-            <!-- Новые логичные опции -->
-            <div class="calc-extra" data-show-for="bot,card,landing">
-              <input type="checkbox" id="ext-pay" value="Онлайн-оплата" data-price="1200" data-time="2">
-              <label for="ext-pay"><div class="calc-extra-check">Онлайн-оплата</div><span class="extra-price">+1 200 ₽</span></label>
+                  <div class="calc-extras">
+            <!-- ОПЦИИ ДЛЯ БОТА -->
+            <div class="calc-extra" data-show-for="bot">
+              <input type="checkbox" id="ext-bot-pay" value="Онлайн-оплата" data-price="1500" data-time="2">
+              <label for="ext-bot-pay"><div class="calc-extra-check">Онлайн-оплата (ЮKassa/СБП)</div><span class="extra-price">+1 500 ₽</span></label>
             </div>
-            <div class="calc-extra" data-show-for="bot,card,landing">
-              <input type="checkbox" id="ext-crm" value="Интеграция с CRM" data-price="1000" data-time="1">
-              <label for="ext-crm"><div class="calc-extra-check">Интеграция с CRM</div><span class="extra-price">+1 000 ₽</span></label>
+            <div class="calc-extra" data-show-for="bot">
+              <input type="checkbox" id="ext-bot-admin" value="Админ-панель" data-price="2000" data-time="2">
+              <label for="ext-bot-admin"><div class="calc-extra-check">Админ-панель</div><span class="extra-price">+2 000 ₽</span></label>
+            </div>
+            <div class="calc-extra" data-show-for="bot">
+              <input type="checkbox" id="ext-bot-sheets" value="Интеграция с Google Таблицами" data-price="1000" data-time="1">
+              <label for="ext-bot-sheets"><div class="calc-extra-check">Google Таблицы</div><span class="extra-price">+1 000 ₽</span></label>
+            </div>
+            <div class="calc-extra" data-show-for="bot">
+              <input type="checkbox" id="ext-bot-form" value="Уведомления в Telegram" data-price="1500" data-time="1">
+              <label for="ext-bot-form"><div class="calc-extra-check">Уведомления в Telegram</div><span class="extra-price">+1 500 ₽</span></label>
+            </div>
+            <div class="calc-extra" data-show-for="bot">
+              <input type="checkbox" id="ext-bot-mailing" value="Настройка рассылок" data-price="1000" data-time="1">
+              <label for="ext-bot-mailing"><div class="calc-extra-check">Рассылки</div><span class="extra-price">+1 000 ₽</span></label>
+            </div>
+
+            <!-- ОПЦИИ ДЛЯ САЙТОВ (card, landing) -->
+            <div class="calc-extra" data-show-for="card,landing">
+              <input type="checkbox" id="ext-site-copy" value="Копирайтинг" data-price="1500" data-time="1">
+              <label for="ext-site-copy"><div class="calc-extra-check">Тексты (копирайтинг)</div><span class="extra-price">+1 500 ₽</span></label>
             </div>
             <div class="calc-extra" data-show-for="card,landing">
-              <input type="checkbox" id="ext-design" value="Индивидуальный дизайн" data-price="1500" data-time="2">
-              <label for="ext-design"><div class="calc-extra-check">Индивидуальный дизайн</div><span class="extra-price">+1 500 ₽</span></label>
+              <input type="checkbox" id="ext-site-seo" value="SEO-оптимизация" data-price="2000" data-time="2">
+              <label for="ext-site-seo"><div class="calc-extra-check">SEO-оптимизация</div><span class="extra-price">+2 000 ₽</span></label>
             </div>
-            <div class="calc-extra" data-show-for="bot,card,landing">
-              <input type="checkbox" id="ext-urgent" value="Срочно вне очереди" data-price="1500" data-time="-1">
-              <label for="ext-urgent"><div class="calc-extra-check">Срочно (вне очереди)</div><span class="extra-price">+1 500 ₽</span></label>
+            <div class="calc-extra" data-show-for="card,landing">
+              <input type="checkbox" id="ext-site-domain" value="Настройка домена и хостинга" data-price="1500" data-time="1">
+              <label for="ext-site-domain"><div class="calc-extra-check">Домен и хостинг</div><span class="extra-price">+1 500 ₽</span></label>
             </div>
+            <div class="calc-extra" data-show-for="card,landing">
+              <input type="checkbox" id="ext-site-multilang" value="Мультиязычность (RU+EN)" data-price="2500" data-time="2">
+              <label for="ext-site-multilang"><div class="calc-extra-check">Мультиязычность (RU+EN)</div><span class="extra-price">+2 500 ₽</span></label>
+            </div>
+            <div class="calc-extra" data-show-for="card,landing">
+              <input type="checkbox" id="ext-site-form" value="Уведомления в Telegram" data-price="1500" data-time="1">
+              <label for="ext-site-form"><div class="calc-extra-check">Уведомления в Telegram</div><span class="extra-price">+1 500 ₽</span></label>
+            </div>
+            <div class="calc-extra" data-show-for="card,landing">
+              <input type="checkbox" id="ext-site-analytics" value="Настройка аналитики" data-price="1000" data-time="1">
+              <label for="ext-site-analytics"><div class="calc-extra-check">Настройка аналитики</div><span class="extra-price">+1 000 ₽</span></label>
+            </div>
+            <div class="calc-extra" data-show-for="card,landing">
+              <input type="checkbox" id="ext-site-crm" value="Интеграция с CRM" data-price="1500" data-time="2">
+              <label for="ext-site-crm"><div class="calc-extra-check">Интеграция с CRM</div><span class="extra-price">+1 500 ₽</span></label>
+            </div>
+          </div>
           </div>
         </div>
       </div>
